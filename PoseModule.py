@@ -6,15 +6,23 @@ import mediapipe as mp
 
 class PoseDetector:
 
-    def __init__(self, mode=False, upBody=False, smooth=True, detectionCon=0.5, trackCon=0.5):
+    def __init__(self, mode=False, upBody=False, smooth=False, detectionCon=0.5, trackCon=0.5):
         self.mode = mode
-        self.upBody = upBody
-        self.smooth = smooth
+        self.upBody = False
+        self.smooth = False
         self.detectionCon = detectionCon
         self.trackCon = trackCon
         self.mpPose = mp.solutions.pose
         self.mpDraw = mp.solutions.drawing_utils
-        self.pose = self.mpPose.Pose(self.mode, self.upBody, self.smooth, self.detectionCon, self.trackCon)
+        self.pose = self.mpPose.Pose(
+            static_image_mode=self.mode,
+            smooth_landmarks=self.smooth,
+            min_detection_confidence=self.detectionCon,
+            min_tracking_confidence=self.trackCon
+        )
+
+
+        # self.pose = self.mpPose.Pose(self.mode, self.upBody, self.smooth, self.detectionCon, self.trackCon)
 
     def get_pose(self, img, draw=True):
         # if not realtime

@@ -45,9 +45,11 @@ def detect_squats():
     per = np.interp(angle, (65, 165), (100, 0))
     bar = np.interp(angle, (65, 165), (300, 600))
 
-cap = cv.VideoCapture(0)
-fps = cap.get(cv.CAP_PROP_FPS)
-delay = round(1000 / fps)
+video_file = 'video.mp4'
+cap = cv.VideoCapture(video_file)
+# fps = cap.get(cv.CAP_PROP_FPS)
+# delay = round(1000 / fps)
+delay = 1
 
 detector = pm.PoseDetector()
 count = 0
